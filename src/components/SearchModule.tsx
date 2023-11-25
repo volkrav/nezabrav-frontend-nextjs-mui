@@ -3,10 +3,14 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { ChangeEvent, useCallback, useState } from "react";
+import ReportsSearchResult from "./ReportsSearchResult";
+import { ESource } from "@/app/api";
+import FormInput from "./FormInput";
 
 interface Props {
   initialValue: string;
   onChange: (value: string) => void;
+  phone: string;
 }
 
 export default function SearchModule(props: Props) {
@@ -17,42 +21,30 @@ export default function SearchModule(props: Props) {
   }, [search]);
 
   return (
-    <div>
-      <Stack sx={{ mt: "40px" }}>
-        <Box
-          component="form"
-          noValidate
-          autoComplete="off"
-          sx={{ marginX: "auto" }}
+    <>
+      <FormInput label="Номер телефону" value={search} onChange={setSearch} textFieldAutoFocus={true}/>
+      <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
+        <Button
+          variant="outlined"
+          sx={{ width: "20ch" }}
+          onClick={(e) => {
+            setSearch(props.initialValue);
+            props.onChange("");
+        }}
         >
-          <TextField
-            sx={{
-              width: "50ch",
-            }}
-            label="Номер телефону"
-            variant="outlined"
-            value={search}
-            autoFocus={true}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setSearch(event.target.value);
-            }}
-          />
-        </Box>
-        <Stack
-          direction={"row"}
-          spacing={2}
-          sx={{ marginX: "auto", mt: "15px" }}
+          Очистити
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ width: "20ch" }}
+          onClick={handleSubmit}
         >
-          <Button variant="outlined" sx={{ width: "20ch" }}
-          onClick={(e) => setSearch(props.initialValue)}>
-            Очистити
-          </Button>
-          <Button variant="contained" sx={{ width: "20ch" }}
-            onClick={handleSubmit}>
-            Шукати
-          </Button>
-        </Stack>
+          Шукати
+        </Button>
       </Stack>
-    </div>
+      <ReportsSearchResult source={ESource.nezabrav} phone={props.phone} />
+      <ReportsSearchResult source={ESource.blackbox} phone={props.phone} />
+      <ReportsSearchResult source={ESource.otzyvua} phone={props.phone} />
+    </>
   );
 }
