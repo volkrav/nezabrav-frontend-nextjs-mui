@@ -8,19 +8,19 @@ import CustomButton, { EVariant } from "./CustomButton";
 
 interface Props {
   initialValue: string;
+  setPhone: (value: string) => void;
 }
 
 export default function SearchModule(props: Props) {
   const [search, setSearch] = useState(props.initialValue);
-  const [phone, setPhone] = useState("");
 
   const handleSubmitSearch = useCallback(() => {
-    setPhone(search);
+    props.setPhone(search);
   }, [search]);
 
   const handleSubmitClear = useCallback(() => {
     setSearch(props.initialValue);
-    setPhone("");
+    props.setPhone("");
   }, []);
 
   return (
@@ -43,9 +43,7 @@ export default function SearchModule(props: Props) {
           onClick={handleSubmitSearch}
         />
       </Stack>
-      <ReportsSearchResult source={ESource.nezabrav} phone={phone} />
-      <ReportsSearchResult source={ESource.blackbox} phone={phone} />
-      <ReportsSearchResult source={ESource.otzyvua} phone={phone} />
+
     </>
   );
 }

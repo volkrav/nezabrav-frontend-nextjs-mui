@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import ActiveModule from "@/components/ActiveModule";
 import SelectTabBar from "@/components/SelectTabBar";
 import ReportsSearchResult from "@/components/ReportsSearchResult";
@@ -16,12 +16,18 @@ export default function HomePage() {
     <Stack>
       <SelectTabBar activeTab={activeTab} onChange={setActiveTab} />
       {/* <ActiveModule activeTab={activeTab} /> */}
-      <Stack sx={{ mt: "40px", marginX: "auto" }}>
-        {activeTab === "search" && <SearchModule initialValue="" />}
-        {activeTab === "add" && <AddModule />}
-      </Stack>
+      {/* <Stack sx={{ mt: "25px", marginX: "auto" }}> */}
+      {activeTab === "search" && (
+        <>
+          <SearchModule initialValue="" setPhone={setPhone} />
 
-
+          <ReportsSearchResult source={ESource.nezabrav} phone={phone} />
+          <ReportsSearchResult source={ESource.blackbox} phone={phone} />
+          <ReportsSearchResult source={ESource.otzyvua} phone={phone} />
+        </>
+      )}
+      {activeTab === "add" && <AddModule />}
+      {/* </Stack> */}
     </Stack>
   );
 }
