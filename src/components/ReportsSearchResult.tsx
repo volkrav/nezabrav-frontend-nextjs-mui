@@ -14,11 +14,15 @@ export default function ReportsSearchResult(props: Props) {
   const { loading, reports } = useReportsSearch(props.source, props.phone);
 
   return (
-    <Box>
-      <h3>{props.phone && props.source+":"} </h3>
-      {loading && <LoadingIndicator />}
-      {reports?.length === 0 && <NoResults phone={props.phone} />}
-      {reports && reports.length > 0 && <Reports reports={reports} />}
-    </Box>
+    <>
+      {props.phone && (
+        <Box>
+          <h3>{props.source + ":"} </h3>
+          {loading && <LoadingIndicator />}
+          {reports?.length === 0 && <NoResults phone={props.phone} />}
+          {reports && reports.length > 0 && <Reports reports={reports} />}
+        </Box>
+      )}
+    </>
   );
 }

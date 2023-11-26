@@ -1,50 +1,51 @@
-import { Box, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import { ChangeEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import ReportsSearchResult from "./ReportsSearchResult";
 import { ESource } from "@/app/api";
 import FormInput from "./FormInput";
+import CustomButton, { EVariant } from "./CustomButton";
 
 interface Props {
   initialValue: string;
-  onChange: (value: string) => void;
-  phone: string;
 }
 
 export default function SearchModule(props: Props) {
   const [search, setSearch] = useState(props.initialValue);
+  const [phone, setPhone] = useState("");
 
-  const handleSubmit = useCallback(() => {
-    props.onChange(search);
+  const handleSubmitSearch = useCallback(() => {
+    setPhone(search);
   }, [search]);
+
+  const handleSubmitClear = useCallback(() => {
+    setSearch(props.initialValue);
+    setPhone("");
+  }, []);
 
   return (
     <>
-      <FormInput label="Номер телефону" value={search} onChange={setSearch} textFieldAutoFocus={true}/>
+      <FormInput
+        label="Номер телефону"
+        value={search}
+        onChange={setSearch}
+        textFieldAutoFocus={true}
+      />
       <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
-        <Button
-          variant="outlined"
-          sx={{ width: "20ch" }}
-          onClick={(e) => {
-            setSearch(props.initialValue);
-            props.onChange("");
-        }}
-        >
-          Очистити
-        </Button>
-        <Button
-          variant="contained"
-          sx={{ width: "20ch" }}
-          onClick={handleSubmit}
-        >
-          Шукати
-        </Button>
+        <CustomButton
+          variant={EVariant.outlined}
+          text="Очистити"
+          onClick={handleSubmitClear}
+        />
+        <CustomButton
+          variant={EVariant.contained}
+          text="Шукати"
+          onClick={handleSubmitSearch}
+        />
       </Stack>
-      <ReportsSearchResult source={ESource.nezabrav} phone={props.phone} />
-      <ReportsSearchResult source={ESource.blackbox} phone={props.phone} />
-      <ReportsSearchResult source={ESource.otzyvua} phone={props.phone} />
+      <ReportsSearchResult source={ESource.nezabrav} phone={phone} />
+      <ReportsSearchResult source={ESource.blackbox} phone={phone} />
+      <ReportsSearchResult source={ESource.otzyvua} phone={phone} />
     </>
   );
 }

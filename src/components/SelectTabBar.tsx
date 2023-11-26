@@ -14,7 +14,7 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-export default function HeaderTabBar(props: Props) {
+export default function SelectTabBar(props: Props) {
   return (
     <Box
       sx={{
@@ -29,7 +29,7 @@ export default function HeaderTabBar(props: Props) {
         value={props.activeTab}
         onChange={(event, value) => props.onChange(value)}
       >
-        <Tab value="search" label="Пошук" {...a11yProps(0)} />
+        <Tab value="search" label="Знайти" {...a11yProps(0)} />
         <Tab value="add" label="Додати" {...a11yProps(1)} />
       </Tabs>
     </Box>
