@@ -3,7 +3,6 @@ import { Box, Stack } from "@mui/material";
 import { addReport } from "@/app/api";
 import CustomButton, { EVariant } from "./CustomButton";
 import CustomTextField from "./CustomTextField";
-// import Textarea from "@mui/joy/Textarea";
 
 export default function AddModule() {
   const [phone, setPhone] = useState("");
@@ -57,30 +56,35 @@ export default function AddModule() {
       <CustomTextField
         label="Номер телефону"
         value={phone}
-        textFieldAutoFocus={true}
-        textFieldRequired={true}
+        autoFocus={true}
+        required={true}
         onChange={setPhone}
       />
       <CustomTextField label="Імʼя" value={firstName} onChange={setFirstName} />
       <CustomTextField
         label="Прізвище"
         value={lastName}
-        textFieldRequired={true}
+        required={true}
         onChange={setLastName}
       />
       <CustomTextField
         label="Номер ТТН"
         value={ttn}
-        textFieldRequired={true}
+        required={true}
         onChange={setTtn}
+        placeholder="ТТН тільки Нової Пошти"
       />
-      <CustomTextField
-        label="Where is the TextArea?"
-        value={report}
-        onChange={setReport}
-      />
+      <>
+        <CustomTextField
+          label="Коментарій"
+          placeholder="Клієнт не забрав відправлення. Відправник зазнав збитків за транспортування."
+          value={report}
+          onChange={setReport}
+          multiline
+          minRows={4}
+        />
+      </>
       <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
-      {/* <Box sx={{ marginX: "auto", mt: "15px",}}> */}
         <CustomButton
           variant={EVariant.outlined}
           text="Очистити"
@@ -88,11 +92,10 @@ export default function AddModule() {
         />
         <CustomButton
           variant={EVariant.contained}
-          text="Додати"
+          text="Відправити"
           onClick={handleSubmitAdd}
         />
-        </Stack>
-      {/* </Box> */}
+      </Stack>
     </Box>
   );
 }

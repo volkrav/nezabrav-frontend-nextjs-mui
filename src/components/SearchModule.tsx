@@ -41,7 +41,7 @@ export default function SearchModule(props: Props) {
       <CustomTextField
         label="Номер телефону"
         value={search}
-        textFieldAutoFocus={true}
+        autoFocus={true}
         onChange={setSearch}
       />
       <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
