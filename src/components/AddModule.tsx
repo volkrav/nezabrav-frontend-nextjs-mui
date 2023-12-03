@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
-import { Box, Button, Stack } from "@mui/material";
-import FormInput from "./FormInput";
+import { Box, Stack } from "@mui/material";
 import { addReport } from "@/app/api";
 import CustomButton, { EVariant } from "./CustomButton";
+import CustomTextField from "./CustomTextField";
 // import Textarea from "@mui/joy/Textarea";
 
 export default function AddModule() {
@@ -42,35 +42,57 @@ export default function AddModule() {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <FormInput
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        p: 1,
+        m: 1,
+        marginX: "auto",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <CustomTextField
         label="Номер телефону"
         value={phone}
-        onChange={setPhone}
         textFieldAutoFocus={true}
+        textFieldRequired={true}
+        onChange={setPhone}
       />
-      <FormInput label="Імʼя" value={firstName} onChange={setFirstName} />
-      <FormInput label="Прізвище" value={lastName} onChange={setLastName} />
-      <FormInput label="Номер ТТН" value={ttn} onChange={setTtn} />
-      <FormInput
+      <CustomTextField label="Імʼя" value={firstName} onChange={setFirstName} />
+      <CustomTextField
+        label="Прізвище"
+        value={lastName}
+        textFieldRequired={true}
+        onChange={setLastName}
+      />
+      <CustomTextField
+        label="Номер ТТН"
+        value={ttn}
+        textFieldRequired={true}
+        onChange={setTtn}
+      />
+      <CustomTextField
         label="Where is the TextArea?"
         value={report}
         onChange={setReport}
       />
-      {/* <Textarea placeholder="Type anything…" /> */}
-
       <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
-      <CustomButton
-        variant={EVariant.outlined}
-        text="Очистити"
-        onClick={handleSubmitClear}
-      />
-      <CustomButton
-        variant={EVariant.contained}
-        text="Додати"
-        onClick={handleSubmitAdd}
-      />
-      </Stack>
+      {/* <Box sx={{ marginX: "auto", mt: "15px",}}> */}
+        <CustomButton
+          variant={EVariant.outlined}
+          text="Очистити"
+          onClick={handleSubmitClear}
+        />
+        <CustomButton
+          variant={EVariant.contained}
+          text="Додати"
+          onClick={handleSubmitAdd}
+        />
+        </Stack>
+      {/* </Box> */}
     </Box>
   );
 }
