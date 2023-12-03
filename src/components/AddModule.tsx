@@ -1,9 +1,8 @@
 import { FormEvent, useState } from "react";
-import { Box, Button, Stack } from "@mui/material";
-import FormInput from "./FormInput";
+import { Box, Stack } from "@mui/material";
 import { addReport } from "@/app/api";
 import CustomButton, { EVariant } from "./CustomButton";
-// import Textarea from "@mui/joy/Textarea";
+import CustomTextField from "./CustomTextField";
 
 export default function AddModule() {
   const [phone, setPhone] = useState("");
@@ -42,34 +41,60 @@ export default function AddModule() {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <FormInput
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        p: 1,
+        m: 1,
+        marginX: "auto",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <CustomTextField
         label="Номер телефону"
         value={phone}
+        autoFocus={true}
+        required={true}
         onChange={setPhone}
-        textFieldAutoFocus={true}
       />
-      <FormInput label="Імʼя" value={firstName} onChange={setFirstName} />
-      <FormInput label="Прізвище" value={lastName} onChange={setLastName} />
-      <FormInput label="Номер ТТН" value={ttn} onChange={setTtn} />
-      <FormInput
-        label="Where is the TextArea?"
-        value={report}
-        onChange={setReport}
+      <CustomTextField label="Імʼя" value={firstName} onChange={setFirstName} />
+      <CustomTextField
+        label="Прізвище"
+        value={lastName}
+        required={true}
+        onChange={setLastName}
       />
-      {/* <Textarea placeholder="Type anything…" /> */}
-
+      <CustomTextField
+        label="Номер ТТН"
+        value={ttn}
+        required={true}
+        onChange={setTtn}
+        placeholder="ТТН тільки Нової Пошти"
+      />
+      <>
+        <CustomTextField
+          label="Коментарій"
+          placeholder="Клієнт не забрав відправлення. Відправник зазнав збитків за транспортування."
+          value={report}
+          onChange={setReport}
+          multiline
+          minRows={4}
+        />
+      </>
       <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
-      <CustomButton
-        variant={EVariant.outlined}
-        text="Очистити"
-        onClick={handleSubmitClear}
-      />
-      <CustomButton
-        variant={EVariant.contained}
-        text="Додати"
-        onClick={handleSubmitAdd}
-      />
+        <CustomButton
+          variant={EVariant.outlined}
+          text="Очистити"
+          onClick={handleSubmitClear}
+        />
+        <CustomButton
+          variant={EVariant.contained}
+          text="Відправити"
+          onClick={handleSubmitAdd}
+        />
       </Stack>
     </Box>
   );

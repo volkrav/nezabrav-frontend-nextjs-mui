@@ -3,8 +3,10 @@ import Stack from "@mui/material/Stack";
 import { FormEvent, useCallback, useState } from "react";
 import ReportsSearchResult from "./ReportsSearchResult";
 import { ESource } from "@/app/api";
-import FormInput from "./FormInput";
+import FormInput from "./CustomTextField";
 import CustomButton, { EVariant } from "./CustomButton";
+import { Box } from "@mui/material";
+import CustomTextField from "./CustomTextField";
 
 interface Props {
   initialValue: string;
@@ -24,12 +26,23 @@ export default function SearchModule(props: Props) {
   }, []);
 
   return (
-    <>
-      <FormInput
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        p: 1,
+        m: 1,
+        marginX: "auto",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <CustomTextField
         label="Номер телефону"
         value={search}
+        autoFocus={true}
         onChange={setSearch}
-        textFieldAutoFocus={true}
       />
       <Stack direction={"row"} spacing={2} sx={{ marginX: "auto", mt: "15px" }}>
         <CustomButton
@@ -43,7 +56,6 @@ export default function SearchModule(props: Props) {
           onClick={handleSubmitSearch}
         />
       </Stack>
-
-    </>
+    </Box>
   );
 }

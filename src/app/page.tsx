@@ -15,8 +15,6 @@ export default function HomePage() {
   return (
     <Stack>
       <SelectTabBar activeTab={activeTab} onChange={setActiveTab} />
-      {/* <ActiveModule activeTab={activeTab} /> */}
-      {/* <Stack sx={{ mt: "25px", marginX: "auto" }}> */}
       {activeTab === "search" && (
         <>
           <SearchModule initialValue="" setPhone={setPhone} />
@@ -27,7 +25,6 @@ export default function HomePage() {
         </>
       )}
       {activeTab === "add" && <AddModule />}
-      {/* </Stack> */}
     </Stack>
   );
 }
