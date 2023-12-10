@@ -6,11 +6,11 @@ export default function useReportsSearch(source: ESource, phone: string) {
   const [reports, setReports] = useState<null | Array<CustomerReport>>(null);
 
   useEffect(() => {
+    setReports(null);
     if (!phone) {
       return;
     }
     setloading(true);
-    setReports(null);
 
     searchReports(source, phone)
       .then(data => {

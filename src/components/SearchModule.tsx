@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import ReportsSearchResult from "./ReportsSearchResult";
 import { ESource } from "@/app/api";
 import FormInput from "./CustomTextField";
@@ -22,7 +22,7 @@ export default function SearchModule(props: Props) {
 
   const handleSubmitClear = useCallback(() => {
     setSearch(props.initialValue);
-    props.setPhone("");
+    props.setPhone(props.initialValue);
   }, []);
 
   return (

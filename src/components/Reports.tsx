@@ -7,11 +7,11 @@ interface Props {
 
 export default function Reports(props: Props) {
     return (
-        <div>
+        <Box>
             {props.reports.map((report, index) => (
-                <div key={index}>{report.report}</div>
+                <Box key={index}>{report.report}</Box>
             ))}
-        </div>
+        </Box>
 
     )
 }

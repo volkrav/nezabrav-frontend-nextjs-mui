@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Box, Stack } from "@mui/material";
-import ActiveModule from "@/components/ActiveModule";
 import SelectTabBar from "@/components/SelectTabBar";
 import ReportsSearchResult from "@/components/ReportsSearchResult";
 import { ESource } from "./api";
