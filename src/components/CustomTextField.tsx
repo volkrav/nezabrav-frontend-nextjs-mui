@@ -8,10 +8,10 @@ interface Props {
   onChange: (value: string) => void;
   autoFocus?: boolean;
   required?: boolean;
+  errorMsg?: string;
   multiline?: boolean;
   minRows?: number;
   placeholder?: string;
-  helperText?: string;
 }
 
 export default function CustomTextField(props: Props) {
@@ -21,6 +21,7 @@ export default function CustomTextField(props: Props) {
         width: "50ch",
         mt: "15px",
       }}
+      error={props.errorMsg != undefined}
       label={props.label}
       variant="outlined"
       value={props.value}
@@ -32,7 +33,7 @@ export default function CustomTextField(props: Props) {
       multiline={props.multiline || false}
       minRows={props.minRows || 1}
       placeholder={props.placeholder || ""}
-      helperText={props.helperText || ""}
+      helperText={props.errorMsg}
       />
   );
 }

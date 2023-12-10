@@ -1,8 +1,14 @@
 import { FormEvent, useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, TextField } from "@mui/material";
 import { addReport } from "@/app/api";
 import CustomButton, { EVariant } from "./CustomButton";
 import CustomTextField from "./CustomTextField";
+
+interface Errors {
+  phone?: string;
+  lastName?: string;
+  ttn?: string;
+}
 
 export default function AddModule() {
   const [phone, setPhone] = useState("");
@@ -10,6 +16,7 @@ export default function AddModule() {
   const [lastName, setLastName] = useState("");
   const [ttn, setTtn] = useState("");
   const [report, setReport] = useState("");
+  const [errors, setErrors] = useState<Errors>({});
 
   function handleSubmitClear(event: FormEvent) {
     event.preventDefault();
@@ -18,10 +25,33 @@ export default function AddModule() {
     setLastName("");
     setTtn("");
     setReport("");
+    setErrors({});
+  }
+
+  function validateForm() {
+    const e: Errors = {};
+    if (!phone) {
+      e.phone = "Це поле обовʼязкове!";
+    }
+    if (!lastName) {
+      e.lastName = "Це поле обовʼязкове!";
+    }
+    if (lastName && lastName.length < 3) {
+      e.lastName = "Прізвище повинне мати більше 2 символів";
+    }
+    if (!ttn) {
+      e.ttn = "Це поле обовʼязкове!";
+    }
+    setErrors(e);
+
+    return Object.keys(e).length == 0;
   }
 
   async function handleSubmitAdd(event: FormEvent) {
     event.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     try {
       addReport({
         phone,
@@ -58,25 +88,37 @@ export default function AddModule() {
         value={phone}
         autoFocus={true}
         required={true}
-        onChange={setPhone}
+        errorMsg={errors.phone}
+        onChange={(value) => {
+          setPhone(value);
+          // setErrorPhone(undefined);
+        }}
       />
       <CustomTextField label="Імʼя" value={firstName} onChange={setFirstName} />
       <CustomTextField
         label="Прізвище"
         value={lastName}
         required={true}
-        onChange={setLastName}
+        errorMsg={errors.lastName}
+        onChange={(value) => {
+          setLastName(value);
+          // setErrorLastName(undefined);
+        }}
       />
       <CustomTextField
         label="Номер ТТН"
         value={ttn}
         required={true}
-        onChange={setTtn}
+        errorMsg={errors.ttn}
+        onChange={(value) => {
+          setTtn(value);
+          // setErrorTtn(undefined);
+        }}
         placeholder="ТТН тільки Нової Пошти"
       />
       <>
         <CustomTextField
-          label="Коментарій"
+          label="Коментар"
           placeholder="Клієнт не забрав відправлення. Відправник зазнав збитків за транспортування."
           value={report}
           onChange={setReport}
